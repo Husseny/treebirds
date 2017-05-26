@@ -1,0 +1,5 @@
+[client]
+database = treebirds
+user = mockingbird
+password = nsms213
+default-character-set = utf8

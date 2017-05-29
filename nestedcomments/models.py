@@ -54,6 +54,13 @@ class Comment(models.Model):
 			cursor.execute('UPDATE comment SET lft = lft - %s WHERE lft > %s', [range, rgt])
 			return True
 
+	@classmethod
+	def view_comments(cls):
+		with connection.cursor() as cursor:
+			cursor.execute('SELECT node.id, node.comment, (COUNT(parent.id) ) AS depth, FLOOR(HOUR(TIMEDIFF(node.created_at, NOW())) / 24) AS days, MOD(HOUR(TIMEDIFF(node.created_at, NOW())), 24) AS hours, MINUTE(TIMEDIFF(node.created_at, NOW())) AS minutes FROM comment AS node, comment AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt GROUP BY node.id ORDER BY node.lft')
+			comments = dictfetchall(cursor)
+			return comments
+
 
 class User(models.Model):
 	name = models.CharField(max_length=30)
@@ -63,3 +70,11 @@ def namedtuplefetchall(cursor):
     desc = cursor.description
     nt_result = namedtuple('Result', [col[0] for col in desc])
     return [nt_result(*row) for row in cursor.fetchall()]
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]

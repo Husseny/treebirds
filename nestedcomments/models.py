@@ -39,6 +39,21 @@ class Comment(models.Model):
 			cursor.execute('INSERT INTO comment (comment, rgt, lft, created_at) VALUES (%s, %s, %s, NOW())',[comment, new_right, new_left])
 			return True
 
+	@classmethod
+	def delete_comment(cls, comment_id):
+		with connection.cursor() as cursor:
+			cursor.execute('SELECT rgt, lft FROM comment WHERE id = %s',[comment_id])
+			comment = namedtuplefetchall(cursor)[0]
+			rgt = comment.rgt
+			lft = comment.lft
+			#Delete comment and its sub comments
+			cursor.execute('DELETE FROM comment where lft >= %s AND lft < %s', [lft, rgt])
+			range = rgt - lft + 1
+
+			cursor.execute('UPDATE comment SET rgt = rgt - %s WHERE rgt > %s',[range, rgt])
+			cursor.execute('UPDATE comment SET lft = lft - %s WHERE lft > %s', [range, rgt])
+			return True
+
 
 class User(models.Model):
 	name = models.CharField(max_length=30)

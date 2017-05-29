@@ -17,6 +17,7 @@ def add_comment(request):
 		comment = post_data['comment']
 	except (KeyError):
 		return HttpResponse(-1)
-	result = Comment.add_comment(comment)
+	#result = Comment.add_comment(comment)
 	#result = Comment.add_nested_comment(1, comment)
+	result = Comment.delete_comment(1)
 	return HttpResponse(result)

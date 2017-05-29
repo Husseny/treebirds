@@ -23,6 +23,13 @@ app.factory('Scopes', function ($rootScope) {
 });
 
 app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
-	
+	$scope.add_comment = function (){
+		$post_data = {comment: $scope.comment};
+		$http.post('http://localhost:8000/nestedcomments/add_comment/', $post_data).success(function(data){
+			console.log(data);
+		}).error(function(data){
+			console.log("ERROR");
+		});
+	}
 
 }]);

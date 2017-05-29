@@ -18,14 +18,27 @@ class Comment(models.Model):
 		with connection.cursor() as cursor:
 			cursor.execute('SELECT MAX(rgt) AS max FROM comment')
 			comments = namedtuplefetchall(cursor)
-			if None in comments:
+			max_right = comments[0].max
+			if max_right == None:
 				max_right = 0
-			else:
-				max_right = comments[0].max
 			new_left = max_right + 1
 			new_right = new_left + 1
 			cursor.execute('INSERT INTO comment (comment, rgt, lft, created_at) VALUES (%s, %s, %s, NOW())',[comment, new_right, new_left])
 			return True
+
+	@classmethod
+	def add_nested_comment(cls, parent_comment_id, comment):
+		with connection.cursor() as cursor:
+			cursor.execute('SELECT rgt as parent_right FROM comment WHERE id = %s',[parent_comment_id])
+			parent_comment = namedtuplefetchall(cursor)
+			parent_right = parent_comment[0].parent_right
+			cursor.execute('UPDATE comment SET rgt = rgt + 2 WHERE rgt >= %s', [parent_right])
+			cursor.execute('UPDATE comment SET lft = lft + 2 WHERE lft >= %s', [parent_right])
+			new_left = parent_right
+			new_right = new_left + 1
+			cursor.execute('INSERT INTO comment (comment, rgt, lft, created_at) VALUES (%s, %s, %s, NOW())',[comment, new_right, new_left])
+			return True
+
 
 class User(models.Model):
 	name = models.CharField(max_length=30)

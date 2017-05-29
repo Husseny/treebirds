@@ -18,4 +18,5 @@ def add_comment(request):
 	except (KeyError):
 		return HttpResponse(-1)
 	result = Comment.add_comment(comment)
+	#result = Comment.add_nested_comment(1, comment)
 	return HttpResponse(result)

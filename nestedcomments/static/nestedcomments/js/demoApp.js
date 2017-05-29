@@ -23,6 +23,6 @@ app.factory('Scopes', function ($rootScope) {
 });
 
 app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
-
+	
 
 }]);

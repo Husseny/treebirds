@@ -51,3 +51,6 @@ python manage.py createsuperuser
 python manage.py runserver 0.0.0.0:8000
 
 visit /admin
+
+## Raw Sql with django
+https://docs.djangoproject.com/en/1.11/topics/db/sql/

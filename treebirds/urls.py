@@ -19,5 +19,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^nestedcomments/', include('nestedcomments.urls'))
+    url(r'^nestedcomments/', include('nestedcomments.urls')),
+    url(r'', include('profily.urls'))
 ]

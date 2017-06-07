@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Overpass+Mono');
+
+body{
+	background-color: #552582;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	font-family: 'Overpass Mono', monospace;
+}
+
+.profiles-row {
+	margin-top: 20%;
+}
+
+.img-div {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.img-circle {
+	position: relative;
+	border-radius: 50%;
+	height: 200px;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+}
+
+.github-corner-circle {
+	position: absolute;
+	height: 50px;
+	margin-top: 50px;
+	left: 45px;
+}
+
+.medium-corner-circle {
+	position: absolute;
+	height: 65px;
+	margin-top: 55px;
+	left: 150px;
+}
+
+.linkedin-img {
+	position: relative;
+	height: 200px;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+}
+
+.linkedin-corner {
+	position: absolute;
+	height: 45px;
+	margin-top: 85px;
+	left: 160px;
+}
+
+.message-row {
+	margin-top: 15%;
+	color: #FDB927;
+	font-size: 1.6vw;
+}

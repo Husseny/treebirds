@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static "nestedcomments/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "treebirds/css/bootstrap.min.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "nestedcomments/css/demo.css" %}">
 
 	<!-- Library code. -->
-	<script type="text/javascript" src="{% static "nestedcomments/js/jquery-2.0.2.js" %}"></script>
-	<script type="text/javascript" src="{% static "nestedcomments/js/angular.js" %}"></script>
-	<script type="text/javascript" src="{% static "nestedcomments/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "treebirds/js/jquery-2.0.2.js" %}"></script>
+	<script type="text/javascript" src="{% static "treebirds/js/angular.js" %}"></script>
+	<script type="text/javascript" src="{% static "treebirds/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "nestedcomments/js/demoApp.js" %}"></script>
 	<title>Treebirds</title>
 </head>
@@ -18,7 +18,14 @@
 	<div class="container-fluid">
 		<div ng-repeat="comment in comments track by $index">
 			<div class="row">
-				<div class="col-xs-offset-{[{comment.depth}]}">{[{comment.comment}]}</div>
+				<div ng-attr-class="col-xs-offset-{[{comment.depth}]} comment-box 
+					comment-{[{comment.comment_type}]}">
+					<div class="row">
+						<span class="col-xs-11">{[{comment.comment}]}</span>
+						<a class="btn btn-info btn-circle text-uppercase col-xs-1 reply-button-{[{comment.comment_type}]}" href="#" id="reply">
+							<span class="glyphicon glyphicon-share-alt"></span> Reply</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row">

@@ -24,10 +24,10 @@ app.factory('Scopes', function ($rootScope) {
 
 app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
 	$http.post('http://localhost:8000/nestedcomments/get_comments/').success(function(data){
-			$scope.comments = JSON.parse(data);
-		}).error(function(data){
-			console.log("ERROR");
-		});
+		$scope.comments = JSON.parse(data);
+	}).error(function(data){
+		console.log("ERROR");
+	});
 
 
 	$scope.add_comment = function (){

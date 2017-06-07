@@ -57,7 +57,7 @@ class Comment(models.Model):
 	@classmethod
 	def view_comments(cls):
 		with connection.cursor() as cursor:
-			cursor.execute('SELECT node.id, node.comment, (COUNT(parent.id) ) AS depth, FLOOR(HOUR(TIMEDIFF(node.created_at, NOW())) / 24) AS days, MOD(HOUR(TIMEDIFF(node.created_at, NOW())), 24) AS hours, MINUTE(TIMEDIFF(node.created_at, NOW())) AS minutes FROM comment AS node, comment AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt GROUP BY node.id ORDER BY node.lft')
+			cursor.execute('SELECT node.id, node.comment, (COUNT(parent.id)) AS depth, CASE WHEN COUNT(parent.id)=1 THEN 0 WHEN COUNT(parent.id)>1 THEN 1 END AS comment_type, FLOOR(HOUR(TIMEDIFF(node.created_at, NOW())) / 24) AS days, MOD(HOUR(TIMEDIFF(node.created_at, NOW())), 24) AS hours, MINUTE(TIMEDIFF(node.created_at, NOW())) AS minutes FROM comment AS node, comment AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt GROUP BY node.id ORDER BY node.lft')
 			comments = dictfetchall(cursor)
 			return comments
 

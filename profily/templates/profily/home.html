@@ -12,6 +12,9 @@
 	<script type="text/javascript" src="{% static "treebirds/js/angular.js" %}"></script>
 	<script type="text/javascript" src="{% static "treebirds/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "profily/js/homeApp.js" %}"></script>
+	<script type="text/javascript">
+		var site_url = "{{ host_name }}";
+	</script>
 	<title>Treebirds</title>
 </head>
 <body ng-app="homeApp" ng-controller="homeCtrl">

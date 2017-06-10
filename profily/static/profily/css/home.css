@@ -21,7 +21,7 @@ body{
 .img-circle {
 	position: relative;
 	border-radius: 50%;
-	height: 200px;
+	height: 160px;
 	cursor: pointer;
 	top: 0;
 	left: 0;
@@ -29,21 +29,21 @@ body{
 
 .github-corner-circle {
 	position: absolute;
-	height: 50px;
-	margin-top: 50px;
-	left: 45px;
+	height: 40px;
+	margin-top: 45px;
+	left: 40px;
 }
 
 .medium-corner-circle {
 	position: absolute;
-	height: 65px;
-	margin-top: 55px;
-	left: 150px;
+	height: 52px;
+	margin-top: 45px;
+	left: 120px;
 }
 
 .linkedin-img {
 	position: relative;
-	height: 200px;
+	height: 160px;
 	cursor: pointer;
 	top: 0;
 	left: 0;
@@ -51,9 +51,9 @@ body{
 
 .linkedin-corner {
 	position: absolute;
-	height: 45px;
-	margin-top: 85px;
-	left: 160px;
+	height: 36px;
+	margin-top: 65px;
+	left: 130px;
 }
 
 .message-row {

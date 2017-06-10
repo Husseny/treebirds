@@ -25,16 +25,16 @@ app.factory('Scopes', function ($rootScope) {
 app.controller('homeCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
 	$scope.open_profile = function(index) {
 		$http.post(site_url+'open_profile/', {index: index});
-		// switch(index){
-		// 	case 1: 
-		// 		$window.location.href='https://www.medium.com/@husseny';
-		// 		break;
-		// 	case 2: 
-		// 		$window.location.href='https://www.linkedin.com/in/husseny/';
-		// 		break;
-		// 	case 3: 
-		// 		$window.location.href='https://www.github.com/Husseny';
-		// 		break;
-		// }
+		switch(index){
+			case 1: 
+				$window.location.href='https://www.medium.com/@husseny';
+				break;
+			case 2: 
+				$window.location.href='https://www.linkedin.com/in/husseny/';
+				break;
+			case 3: 
+				$window.location.href='https://www.github.com/Husseny';
+				break;
+		}
 	}
 }]);

@@ -54,3 +54,8 @@ visit /admin
 
 ## Raw Sql with django
 https://docs.djangoproject.com/en/1.11/topics/db/sql/
+
+
+pip install -r requirements.txt
+python manage.py migrate
+

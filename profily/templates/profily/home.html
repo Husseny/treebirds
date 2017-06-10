@@ -17,25 +17,25 @@
 <body ng-app="homeApp" ng-controller="homeCtrl">
 	<div class="container-fluid">
 		<div class="row profiles-row">
-			<div class="img-div col-xs-offset-3 col-xs-2" ng-mouseenter="hover1=true" ng-mouseleave="hover1=false" 
+			<div class="img-div col-md-offset-3 col-md-2" ng-mouseenter="hover1=true" ng-mouseleave="hover1=false" 
 				ng-click="open_profile(1)">
 				<img class="img-circle" ng-show="hover1" src="{% static "profily/img/picture1.png" %}">
 				<img class="{[{(hover1 && 'medium-corner-circle' || !hover1 && 'img-circle')}]}" 
 					src="{% static "profily/img/medium-logo.png" %}">
 			</div>
-			<div class="img-div col-xs-2" ng-mouseenter="hover2=true" ng-mouseleave="hover2=false" ng-click="open_profile(2)">
+			<div class="img-div col-md-2" ng-mouseenter="hover2=true" ng-mouseleave="hover2=false" ng-click="open_profile(2)">
 				<img class="img-circle" ng-show="hover2" src="{% static "profily/img/picture2.png" %}">
 				<img class="{[{(hover2 && 'linkedin-corner' || !hover2 && 'linkedin-img')}]}" 
 					ng-src="{[{(hover2 && '{% static "profily/img/In-Black-128px-TM.png" %}' || !hover2 && '{% static "profily/img/In-White-128px-TM.png" %}')}]}">
 			</div>
-			<div class="img-div col-xs-2" ng-mouseenter="hover3=true" ng-mouseleave="hover3=false" ng-click="open_profile(3)">
+			<div class="img-div col-md-2" ng-mouseenter="hover3=true" ng-mouseleave="hover3=false" ng-click="open_profile(3)">
 				<img class="img-circle" ng-show="hover3" src="{% static "profily/img/picture3.png" %}">
 				<img class="{[{(hover3 && 'github-corner-circle' || !hover3 && 'img-circle')}]}" 
 					src="{% static "profily/img/GitHub-Mark.png" %}">
 			</div>
 		</div>
 		<div class="row message-row">
-			<div class="col-xs-offset-7 col-xs-5">
+			<div class="col-md-offset-7 col-md-5">
 				<span>For relevant projects email me <br>@ husseny.xyz@gmail.com</span>
 			</div>
 		</div>

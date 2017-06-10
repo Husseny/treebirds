@@ -9,19 +9,21 @@ body{
 }
 
 .profiles-row {
-	margin-top: 20%;
+	margin-top: 15%;
+	margin-left: 3%;
+	margin-right: 3%;
 }
 
 .img-div {
 	position: relative;
-	top: 0;
-	left: 0;
+	margin-top: 4%;
+
 }
 
 .img-circle {
 	position: relative;
 	border-radius: 50%;
-	height: 160px;
+	height: 155px;
 	cursor: pointer;
 	top: 0;
 	left: 0;
@@ -29,21 +31,21 @@ body{
 
 .github-corner-circle {
 	position: absolute;
-	height: 40px;
+	height: 35px;
 	margin-top: 45px;
 	left: 40px;
 }
 
 .medium-corner-circle {
 	position: absolute;
-	height: 52px;
+	height: 47px;
 	margin-top: 45px;
 	left: 120px;
 }
 
 .linkedin-img {
 	position: relative;
-	height: 160px;
+	height: 155px;
 	cursor: pointer;
 	top: 0;
 	left: 0;
@@ -51,9 +53,9 @@ body{
 
 .linkedin-corner {
 	position: absolute;
-	height: 36px;
-	margin-top: 65px;
-	left: 130px;
+	height: 35px;
+	margin-top: 63px;
+	left: 127px;
 }
 
 .message-row {

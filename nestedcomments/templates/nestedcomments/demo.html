@@ -16,25 +16,36 @@
 </head>
 <body ng-app="demoApp" ng-controller="demoCtrl">
 	<div class="container-fluid">
-		<div ng-repeat="comment in comments track by $index">
+		<div class="post-comments">
+			<form>
+				<div class="form-group">
+					<label for="comment">Your Comment</label>
+					<textarea name="comment" ng-model="comment0" class="form-control" rows="3"></textarea>
+				</div>
+				<button type="submit" class="btn btn-default" ng-click="add_comment(0)">Send</button>
+			</form>
 			<div class="row">
-				<div ng-attr-class="col-xs-offset-{[{comment.depth}]} comment-box 
-					comment-{[{comment.comment_type}]}">
-					<div class="row">
-						<span class="col-xs-11">{[{comment.comment}]}</span>
-						<a class="btn btn-info btn-circle text-uppercase col-xs-1 reply-button-{[{comment.comment_type}]}" href="#" id="reply">
-							<span class="glyphicon glyphicon-share-alt"></span> Reply</a>
+				<div ng-repeat="comment in comments track by $index">
+					<div class="media col-xs-offset-{[{comment.depth}]}">
+						<div class="media-heading">wrote {[{comment.minutes}]} minutes ago</div>
+						<p>{[{comment.comment}]}</p>
+						<div class="comment-meta">
+							<span><a role="button" ng-click="delete_comment(comment.id)">delete</a></span>
+							<span>
+								<a role="button" ng-click="showReplayForm = !showReplayForm" aria-expanded="false">reply</a>
+							</span>
+							<div ng-show="showReplayForm">
+								<form>
+									<div class="form-group">
+										<label for="comment">Your Comment</label>
+										<textarea id="comment-{[{comment.id}]}" class="form-control" rows="3"></textarea>
+									</div>
+									<button type="submit" class="btn btn-default" ng-click="add_nestedcomment($index, comment.id)">Send</button>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-offset-1 form">
-				<form class="" ng-submit="add_comment()">
-					{% csrf_token %}
-					<input type="text" placeholder="Add Comment" ng-model="comment"/>
-					<button type="submit">Add Comment</button>
-				</form>
 			</div>
 		</div>
 	</div>

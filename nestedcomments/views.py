@@ -17,9 +17,17 @@ def add_comment(request):
 		comment = post_data['comment']
 	except (KeyError):
 		return HttpResponse(-1)
-	#result = Comment.add_comment(comment)
-	#result = Comment.add_nested_comment(5, comment)
-	#result = Comment.delete_comment(1)
+	result = Comment.add_comment(comment)
+	return HttpResponse(result)
+
+def add_nestedcomment(request):
+	post_data = json.loads(request.body)
+	try:
+		comment = post_data['comment']
+		parent_id = post_data['parent_id']
+	except (KeyError):
+		return HttpResponse(-1)
+	result = Comment.add_nested_comment(parent_id, comment)
 	return HttpResponse(result)
 
 def get_comments(request):

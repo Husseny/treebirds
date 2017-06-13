@@ -12,6 +12,9 @@
 	<script type="text/javascript" src="{% static "treebirds/js/angular.js" %}"></script>
 	<script type="text/javascript" src="{% static "treebirds/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "nestedcomments/js/demoApp.js" %}"></script>
+	<script type="text/javascript">
+		var site_url = '{{host_name}}';
+	</script>
 	<title>Treebirds</title>
 </head>
 <body ng-app="demoApp" ng-controller="demoCtrl">
@@ -27,14 +30,14 @@
 			<div class="row">
 				<div ng-repeat="comment in comments track by $index">
 					<div class="media col-xs-offset-{[{comment.depth}]}">
-						<div class="media-heading">wrote {[{comment.minutes}]} minutes ago</div>
+						<div class="media-heading">wrote {[{comment.time_message}]} ago</div>
 						<p>{[{comment.comment}]}</p>
 						<div class="comment-meta">
-							<span><a role="button" ng-click="delete_comment(comment.id)">delete</a></span>
+							<span><a role="button" ng-click="delete_comment($index, comment.id)">delete</a></span>
 							<span>
-								<a role="button" ng-click="showReplayForm = !showReplayForm" aria-expanded="false">reply</a>
+								<a role="button" ng-click="refresh_comments_reply_box($index)" aria-expanded="false">reply</a>
 							</span>
-							<div ng-show="showReplayForm">
+							<div ng-show="comment.show_reply_box">
 								<form>
 									<div class="form-group">
 										<label for="comment">Your Comment</label>

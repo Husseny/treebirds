@@ -23,49 +23,84 @@ app.factory('Scopes', function ($rootScope) {
 });
 
 app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
-	$http.post('http://localhost:8000/nestedcomments/get_comments/').success(function(data){
-		$scope.comments = JSON.parse(data);
-		console.log($scope.comments);
-	}).error(function(data){
-		console.log("ERROR");
-	});
-
 
 	$scope.add_comment = function (index){
 		if(index==0){
 			comment = $scope.comment0;
 			$post_data = {comment: comment};
-			$http.post('http://localhost:8000/nestedcomments/add_comment/', $post_data).success(function(data){
-				$scope.comments.push({comment: comment, comment_type: 0, id: data,
-					days: 0, hours: 0, minutes: 0, depth:0});
+			$http.post(site_url+'nestedcomments/add_comment/', $post_data).success(function(data){
+				if(data != -1){
+					$scope.comments.push({comment: comment, comment_type: 0, id: data,
+						days: 0, hours: 0, minutes: 0, depth:1, show_reply_box: 0, time_message: "a while"});
+					// The scope method refresh_comments() can be used instead of the above code to refresh the comments 
+					// listed in the view, with the cost of a request to the server
+					// $scope.refresh_comments();
+					$scope.comment0 = '';
+				}
 			}).error(function(data){
 				console.log("ERROR");
 			});
 		}
-	}
+	};
 
 	$scope.add_nestedcomment = function (index, comment_id){
 		comment = angular.element('#comment-'+comment_id).val();
 		$post_data = {parent_id:comment_id, comment: comment};
-		$http.post('http://localhost:8000/nestedcomments/add_nestedcomment/', $post_data).success(function(data){
-			var temp_comments = $scope.comments;
-			var comments_counter = 0;
-			var new_comment_added = false;
-			$scope.comments = [];
-			for (var i = 0; i < temp_comments.length+1; i++) {
-				if(!new_comment_added && i>index && 
-					(temp_comments[i].depth<temp_comments[i-1].depth || temp_comments[i].depth == temp_comments[index].depth)){
-					$scope.comments.push({comment: comment, comment_type: 1, id: data,
-						days: 0, hours: 0, minutes: 0, depth:temp_comments[index].depth+1});
-					new_comment_added = true;
+		$http.post(site_url+'nestedcomments/add_nestedcomment/', $post_data).success(function(data){
+			if(data != -1){
+				var temp_comments = $scope.comments;
+				var comments_counter = 0;
+				var new_comment_added = false;
+				$scope.comments = [];
+				for (var i = 0; i < temp_comments.length+1; i++) {
+					if(!new_comment_added && i>index && 
+						(temp_comments[i].depth<temp_comments[i-1].depth || temp_comments[i].depth == temp_comments[index].depth)){
+						$scope.comments.push({comment: comment, comment_type: 1, id: data,
+							days: 0, hours: 0, minutes: 0, depth:temp_comments[index].depth+1, show_reply_box: 0, time_message: "a while"});
+						new_comment_added = true;
+					}
+					else
+						$scope.comments.push(temp_comments[comments_counter++]);
 				}
-				else
-					$scope.comments.push(temp_comments[comments_counter++]);
+				// The scope method refresh_comments() can be used instead of the above code to refresh the comments 
+				// listed in the view, with the cost of a request to the server
+				// $scope.refresh_comments();
+				$scope.comments[index].show_reply_box = 0;
+				angular.element('#comment-'+comment_id).val('');
 			}
-			$scope.$apply();
 		}).error(function(data){
 			console.log("ERROR");
 		});
-	}
+	};
+
+	$scope.delete_comment = function(index, comment_id){
+		$post_data = {comment_id:comment_id};
+		$http.post(site_url+'nestedcomments/delete_comment/', $post_data).success(function(data){
+			if(data != -1)
+				$scope.refresh_comments();
+		}).error(function(data){
+			console.log("ERROR");
+		});
+	};
+
+	$scope.refresh_comments_reply_box = function(index){
+		for (var i = 0; i < $scope.comments.length; i++)
+			if(i == index)
+				$scope.comments[i].show_reply_box = ! $scope.comments[i].show_reply_box;
+			else
+				$scope.comments[i].show_reply_box = 0;
+		return true
+	};
+
+	$scope.refresh_comments = function(){
+		$http.post(site_url+'nestedcomments/get_comments/').success(function(data){
+			$scope.comments = JSON.parse(data);
+			console.log($scope.comments);
+		}).error(function(data){
+			console.log("ERROR");
+		});
+	};
+
+	$scope.refresh_comments();
 
 }]);

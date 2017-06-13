@@ -44,12 +44,12 @@ class Comment(models.Model):
 	@classmethod
 	def delete_comment(cls, comment_id):
 		with connection.cursor() as cursor:
-			cursor.execute('SELECT rgt, lft FROM comment WHERE id = %s',[comment_id])
+			cursor.execute('SELECT rgt, lft FROM nestedcomments_comment WHERE id = %s',[comment_id])
 			comment = namedtuplefetchall(cursor)[0]
 			rgt = comment.rgt
 			lft = comment.lft
 			#Delete comment and its sub comments
-			cursor.execute('DELETE FROM comment where lft >= %s AND lft < %s', [lft, rgt])
+			cursor.execute('DELETE FROM nestedcomments_comment where lft >= %s AND lft < %s', [lft, rgt])
 			range = rgt - lft + 1
 
 			cursor.execute('UPDATE nestedcomments_comment SET rgt = rgt - %s WHERE rgt > %s',[range, rgt])
@@ -59,8 +59,28 @@ class Comment(models.Model):
 	@classmethod
 	def view_comments(cls):
 		with connection.cursor() as cursor:
-			cursor.execute('SELECT node.id, node.comment, (COUNT(parent.id)) AS depth, CASE WHEN COUNT(parent.id)=1 THEN 0 WHEN COUNT(parent.id)>1 THEN 1 END AS comment_type, FLOOR(HOUR(TIMEDIFF(node.created_at, NOW())) / 24) AS days, MOD(HOUR(TIMEDIFF(node.created_at, NOW())), 24) AS hours, MINUTE(TIMEDIFF(node.created_at, NOW())) AS minutes FROM nestedcomments_comment AS node, nestedcomments_comment AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt GROUP BY node.id ORDER BY node.lft')
+			cursor.execute('SELECT node.id, node.comment, FALSE AS show_reply_box, (COUNT(parent.id)) AS depth, CASE WHEN COUNT(parent.id)=1 THEN 0 WHEN COUNT(parent.id)>1 THEN 1 END AS comment_type, FLOOR(HOUR(TIMEDIFF(node.created_at, NOW())) / 24) AS days, MOD(HOUR(TIMEDIFF(node.created_at, NOW())), 24) AS hours, MINUTE(TIMEDIFF(node.created_at, NOW())) AS minutes FROM nestedcomments_comment AS node, nestedcomments_comment AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt GROUP BY node.id ORDER BY node.lft')
 			comments = dictfetchall(cursor)
+			for comment in comments:
+				days = comment['days']
+				hours = comment['hours']
+				minutes = comment['minutes']
+				time_message = ""
+				if days > 0:
+					if days>30:
+						time_message = "over a month"
+					elif days==1:
+						time_message = "a day"
+					else:
+						time_message = str(days)+" days"
+				else:
+					if hours>0:
+						time_message = str(hours)+" hours"
+					elif minutes>0:
+						time_message = str(minutes)+" minutes"
+					else:
+						time_message = "a while"
+				comment['time_message'] = time_message
 			return comments
 
 

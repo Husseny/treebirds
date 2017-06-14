@@ -2,14 +2,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-
-from user_agents import parse
-
-from models import Activity
-
-import json
-
 from django.http import HttpResponse, JsonResponse
+from models import Activity
+from user_agents import parse
+import json
 
 # Create your views here.
 

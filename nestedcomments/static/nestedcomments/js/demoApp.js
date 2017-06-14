@@ -32,8 +32,8 @@ app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function us
 				if(data != -1){
 					$scope.comments.push({comment: comment, comment_type: 0, id: data,
 						days: 0, hours: 0, minutes: 0, depth:1, show_reply_box: 0, time_message: "a while"});
-					// The scope method refresh_comments() can be used instead of the above code to refresh the comments 
-					// listed in the view, with the cost of a request to the server
+					// The scope method refresh_comments() can replace the above line of code to refresh the comments 
+					// listed in the html, with the cost of a request to the server
 					// $scope.refresh_comments();
 					$scope.comment0 = '';
 				}
@@ -48,23 +48,7 @@ app.controller('demoCtrl', ['$scope', '$http', '$window', 'Scopes',  function us
 		$post_data = {parent_id:comment_id, comment: comment};
 		$http.post(site_url+'nestedcomments/add_nestedcomment/', $post_data).success(function(data){
 			if(data != -1){
-				var temp_comments = $scope.comments;
-				var comments_counter = 0;
-				var new_comment_added = false;
-				$scope.comments = [];
-				for (var i = 0; i < temp_comments.length+1; i++) {
-					if(!new_comment_added && i>index && 
-						(temp_comments[i].depth<temp_comments[i-1].depth || temp_comments[i].depth == temp_comments[index].depth)){
-						$scope.comments.push({comment: comment, comment_type: 1, id: data,
-							days: 0, hours: 0, minutes: 0, depth:temp_comments[index].depth+1, show_reply_box: 0, time_message: "a while"});
-						new_comment_added = true;
-					}
-					else
-						$scope.comments.push(temp_comments[comments_counter++]);
-				}
-				// The scope method refresh_comments() can be used instead of the above code to refresh the comments 
-				// listed in the view, with the cost of a request to the server
-				// $scope.refresh_comments();
+				$scope.refresh_comments();
 				$scope.comments[index].show_reply_box = 0;
 				angular.element('#comment-'+comment_id).val('');
 			}

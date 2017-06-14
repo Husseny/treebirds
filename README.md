@@ -1,8 +1,7 @@
 # treebirds
-This is a reddit like nested comments project using a development stack of mysql, django & AngularJS
+##Reddit like nested comments project using a stack of Mysql, Django & AngularJS
 
-Try a live demo on: https://husseny.xyz/nestedcomments/demo/
-
+##### [Demo](https://husseny.xyz/nestedcomments/demo/)
 
 ## Installation
 

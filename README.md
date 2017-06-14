@@ -75,6 +75,7 @@
 ### Helpful links and references:
 	http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/
 	https://www.sitepoint.com/virtual-environments-python-made-easy/
+	https://docs.djangoproject.com/en/1.11/topics/db/sql/
 	http://www.marinamele.com/taskbuster-django-tutorial/install-and-configure-mysql-for-django
 	https://www.digitalocean.com/community/tutorials/how-to-use-mysql-or-mariadb-with-your-django-application-on-ubuntu-14-04
 	https://docs.djangoproject.com/en/1.11/ref/databases/

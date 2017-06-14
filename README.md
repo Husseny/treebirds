@@ -1,4 +1,5 @@
 # treebirds
+This is a reddit like nested comments project using a development stack of mysql, django & AngularJS
 
 Try a live demo on: https://husseny.xyz/nestedcomments/demo/
 
@@ -27,7 +28,7 @@ Try a live demo on: https://husseny.xyz/nestedcomments/demo/
 
 ```workon treebirds```
 
-* Clone the repository, cd to it and install the requirements:
+* Clone the repository, cd to its root and install the requirements:
 
 ```pip install -r requirements.txt```
 
@@ -61,7 +62,8 @@ Try a live demo on: https://husseny.xyz/nestedcomments/demo/
 }
 ```
 
-* your django app should be able to connect to the database now:
+* your django app should be able to connect to the database now.
+* Through the terminal, cd to the project's root and run the following:
 
 ```python manage.py makemigrations```
 
@@ -69,17 +71,12 @@ Try a live demo on: https://husseny.xyz/nestedcomments/demo/
 
 ```python manage.py runserver 0.0.0.0:8000```
 
-* visit localhost:8000/nestedcomments/demo
+* On your browser, visit localhost:8000/nestedcomments/demo
 
 ### Helpful links and references:
 	http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/
-
 	https://www.sitepoint.com/virtual-environments-python-made-easy/
-
 	http://www.marinamele.com/taskbuster-django-tutorial/install-and-configure-mysql-for-django
-
 	https://www.digitalocean.com/community/tutorials/how-to-use-mysql-or-mariadb-with-your-django-application-on-ubuntu-14-04
-
 	https://docs.djangoproject.com/en/1.11/ref/databases/
-	
 	https://bootsnipp.com/snippets/featured/collapsible-nested-comments

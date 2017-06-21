@@ -1,7 +1,7 @@
 # treebirds
 ## Reddit like nested comments project using a stack of Mysql, Django & AngularJS
 
-#### [Demo](https://husseny.xyz/nestedcomments/demo/)
+#### [Demo](https://husseny.xyz/nestedcomments/demo/) hosted on an aws EC2 instance
 
 ## Installation
 
